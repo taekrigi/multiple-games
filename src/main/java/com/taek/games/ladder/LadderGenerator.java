@@ -1,24 +1,17 @@
 package com.taek.games.ladder;
 
-import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
 
 public class LadderGenerator {
 
-	private List<String> participants;
-	private int row;
+	private int row = 10;
 	private int col;
 	private int[][] ladders;
-	
-	public LadderGenerator(List<String> participants) {
-		this(participants, 10);
-	}
-	
-	public LadderGenerator(List<String> participants, int row) {
-		this.participants = participants;
+
+	public LadderGenerator(int row, int col) {
 		this.row = row;
-		this.col = this.participants.size() * 2 - 1;
+		this.col = col;
 		ladders = new int[row][col];
 		generate();
 	}
@@ -38,7 +31,7 @@ public class LadderGenerator {
 			}
 		}
 	}
-	
+
 	private Consumer<Integer> setRoad(int[][] ladders) {
 		Random random = new Random();
 		int[] targets = generateRandomTargets();

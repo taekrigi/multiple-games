@@ -1,5 +1,7 @@
 package com.taek.games.controller;
 
+import java.util.Arrays;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +15,7 @@ public class LadderController {
 
 	@GetMapping
 	public int[][] getLadders() {
-		new Ladder(new LadderGenerator(null, 5)).prettyPrint();
-		return new Ladder(new LadderGenerator(null, 5)).getLadders();
+		new Ladder(Arrays.asList("A", "B", "C", "D", "E")).prettyPrint();
+		return new Ladder(Arrays.asList("A", "B", "C", "D", "E")).getLadders();
 	}
 }
