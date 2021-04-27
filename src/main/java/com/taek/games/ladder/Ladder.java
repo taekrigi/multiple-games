@@ -12,12 +12,14 @@ public class Ladder {
 	
 	private List<String> participants;
 	private List<Boolean> answers;
+	private LadderGenerator ladderGenerator;
 	private int[][] ladders;
 	
 	public Ladder(List<String> participants) {
 		this.participants = participants;
 		this.answers = generateAnswers();
-		this.ladders = new LadderGenerator(10, participants.size() * 2 - 1).getLadders();
+		this.ladderGenerator = new LadderGenerator(10, participants.size() * 2 - 1);
+		this.ladders = ladderGenerator.getLadders();
 	}
 	
 	public void prettyPrint() {
@@ -40,6 +42,37 @@ public class Ladder {
 	
 	public int[][] getLadders() {
 		return ladders;
+	}
+	
+	public void getAnswer(String participant) {
+		int index = participants.indexOf(participant);
+		LadderState ladderState = new LadderState(1, index * 2, LadderDirection.DOWN);
+		
+		for (int i = 0; i < ladders.length; i++) {
+			if (ladderState.getPrevDirection() != LadderDirection.LEFT &&
+				ladderState.getCol() - 1 >= 0 && 
+				ladders[ladderState.getRow()][ladderState.getCol() - 1] == 1
+			) {
+				ladderState.setCol(ladderState.getCol() - 1);
+				ladderState.setPrevDirection(LadderDirection.LEFT);
+			}
+			else if (
+				ladderState.getPrevDirection() != LadderDirection.RIGHT &&
+				ladderState.getCol() + 1 <= ladderGenerator.getCol() - 1 &&
+				ladders[ladderState.getRow()][ladderState.getCol() + 1] == 1
+			) {
+				ladderState.setCol(ladderState.getCol() + 1);
+				ladderState.setPrevDirection(LadderDirection.RIGHT);
+			} 
+			else {
+				ladderState.setRow(ladderState.getRow() + 1);
+				ladderState.setPrevDirection(LadderDirection.DOWN);
+			}
+			
+			if (i == ladders.length - 1) {
+				System.out.println(ladderState.getCol());
+			}
+		}
 	}
 	
 	private List<Boolean> generateAnswers() {

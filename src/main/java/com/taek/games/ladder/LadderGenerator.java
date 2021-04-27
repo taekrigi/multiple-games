@@ -20,6 +20,14 @@ public class LadderGenerator {
 		return ladders;
 	}
 	
+	public int getRow() {
+		return this.row;
+	}
+	
+	public int getCol() {
+		return this.col;
+	}
+	
 	private void generate() {
 		Consumer<Integer> road = setRoad(ladders);
 		for (int i = 0; i < row; i++) {
