@@ -8,7 +8,6 @@ public class Calculator {
 
         double result = Double.parseDouble(inputs[0]);
         for (int i = 1; i < inputs.length; i+=2) {
-            System.out.println(inputs[i + 1]);
             result = OperatorType.findByOperator(inputs[i])
                     .calculate(result, Double.parseDouble(inputs[i + 1]));
         }
